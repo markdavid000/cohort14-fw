@@ -1,13 +1,15 @@
-import ledgerIcon from '/src/assets/academic_ledger.svg'
-import usersIcon from '/src/assets/student_registry.svg'
-import capIcon from '/src/assets/faculty_portal.svg'
-import cardIcon from '/src/assets/claims_billing.svg'
-import settingsIcon from '/src/assets/settings.svg'
-import logoutIcon from '/src/assets/logout.svg'
-import dropIcon from '/src/assets/drop.svg'
-import studentIcon from '/src/assets/student.svg'
-import staffIcon from '/src/assets/staff.svg'
-import approveIcon from '/src/assets/approve.svg'
+import {
+	approveIcon,
+	capIcon,
+	cardIcon,
+	dropIcon,
+	ledgerIcon,
+	logoutIcon,
+	settingsIcon,
+	staffIcon,
+	studentIcon,
+	usersIcon,
+} from './../components/icons'
 
 const navItems = [
 	{ label: 'Overview', active: false, icon: 'grid' },

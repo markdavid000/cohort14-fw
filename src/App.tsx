@@ -9,6 +9,17 @@ import StudentRegistry from './pages/studentRegistry'
 import LandingPage from './pages/LandingPage'
 import AcademicLedger from './pages/academyledger'
 
+// Legal pages
+import TermsOfService from './pages/legal/TermsOfService'
+import PrivacyPolicy from './pages/legal/PrivacyPolicy'
+import TokenPolicy from './pages/legal/TokenPolicy'
+
+// Support pages
+import KnowledgeBase from './pages/support/KnowledgeBase'
+import Documentation from './pages/support/Documentation'
+import SmartContracts from './pages/support/SmartContracts'
+import APIReference from './pages/support/APIReference'
+
 function PortalLayout() {
 	return (
 		<div className="min-h-screen bg-[#eceff3] text-[#5d6470]">
@@ -53,6 +64,17 @@ function App() {
 				{/* Landing page — public, no sidebar */}
 				<Route index element={<LandingPage />} />
 				<Route path="home" element={<LandingPage />} />
+
+				{/* Legal pages — public */}
+				<Route path="terms" element={<TermsOfService />} />
+				<Route path="privacy" element={<PrivacyPolicy />} />
+				<Route path="token-policy" element={<TokenPolicy />} />
+
+				{/* Support pages — public */}
+				<Route path="knowledge-base" element={<KnowledgeBase />} />
+				<Route path="documentation" element={<Documentation />} />
+				<Route path="smart-contracts" element={<SmartContracts />} />
+				<Route path="api-reference" element={<APIReference />} />
 
 				{/* Dashboard routes — protected, requires wallet */}
 				<Route element={<ProtectedRoute />}>

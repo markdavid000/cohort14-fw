@@ -72,9 +72,9 @@ function Overview() {
 						<section>
 							<div className="mb-5 flex items-center justify-between">
 								<h4 className="text-[24px] font-semibold text-[#161c25]">Recent Activity</h4>
-								<button type="button" className="text-[14px] font-semibold text-[#4e88de] hover:underline">
+								<NavLink to="/ledger" className="text-[14px] font-semibold text-[#4e88de] hover:underline">
 									View All Ledger
-								</button>
+								</NavLink>
 							</div>
 
 							<div className="space-y-3 rounded-lg border border-[#dde2e9] bg-white p-6">

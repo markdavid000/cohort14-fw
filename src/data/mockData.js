@@ -29,7 +29,7 @@ export const mockStaff = [
   {
     id: 0,
     name: 'Miss Shuiab Ganiyat',
-    salary: 500,
+    salary: 2500,
     status: 'active',
     wallet: '0xDeAd...bEeF',
     lastPaid: '2025-02-28',
@@ -37,15 +37,15 @@ export const mockStaff = [
   {
     id: 1,
     name: 'Miss Egbela Joy',
-    salary: 300,
+    salary: 1300,
     status: 'suspended',
     wallet: '0x1111...2222',
     lastPaid: null,
   },
   {
     id: 2,
-    name: 'Mr. Adeyemi Paul',
-    salary: 420,
+    name: 'Mr. Adefala Taiwo',
+    salary: 2500,
     status: 'active',
     wallet: '0x7aB2...e91C',
     lastPaid: '2025-03-12',

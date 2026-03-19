@@ -4,6 +4,7 @@ import Overview from './pages/overview'
 import FacultyPortal from './pages/falcutyportal'
 import ClaimPortal from './pages/claimportal'
 import StudentRegistry from './pages/studentRegistry'
+import AcademicLedger from './pages/academyledger'
 
 function PortalLayout() {
 	return (
@@ -25,6 +26,7 @@ function App() {
 				<Route element={<PortalLayout />}>
 					<Route index element={<Overview />} />
 					<Route path="overview" element={<Overview />} />
+					<Route path="ledger" element={<AcademicLedger />} />
 					<Route path="faculty" element={<FacultyPortal />} />
 					<Route path="claims" element={<ClaimPortal />} />
 					<Route path="students" element={<StudentRegistry />} />

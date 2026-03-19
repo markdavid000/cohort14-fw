@@ -6,6 +6,7 @@ import FacultyPortal from './pages/falcutyportal'
 import ClaimPortal from './pages/claimportal'
 import StudentRegistry from './pages/studentRegistry'
 import LandingPage from './pages/LandingPage'
+import AcademicLedger from './pages/academyledger'
 
 function PortalLayout() {
 	return (
@@ -38,6 +39,7 @@ function App() {
 				{/* Dashboard routes — protected, requires wallet */}
 				<Route element={<ProtectedRoute />}>
 					<Route path="overview" element={<Overview />} />
+					<Route path="ledger" element={<AcademicLedger />} />
 					<Route path="faculty" element={<FacultyPortal />} />
 					<Route path="claims" element={<ClaimPortal />} />
 					<Route path="students" element={<StudentRegistry />} />

@@ -1,5 +1,6 @@
 import { studentIcon, staffIcon, walletIcon } from './../components/icons'
 import { mockContractBalance, mockStaff, mockStudents } from '../data/mockData'
+import { NavLink } from 'react-router-dom'
 
 function Overview() {
 	const firstStudent = mockStudents[0]
@@ -71,9 +72,9 @@ function Overview() {
 						<section>
 							<div className="mb-5 flex items-center justify-between">
 								<h4 className="text-[24px] font-semibold text-[#161c25]">Recent Activity</h4>
-								<button type="button" className="text-[14px] font-semibold text-[#4e88de] hover:underline">
+								<NavLink to="/ledger" className="text-[14px] font-semibold text-[#4e88de] hover:underline">
 									View All Ledger
-								</button>
+								</NavLink>
 							</div>
 
 							<div className="space-y-3 rounded-lg border border-[#dde2e9] bg-white p-6">
@@ -140,8 +141,8 @@ function Overview() {
 							<h4 className="mb-5 text-[24px] font-semibold text-[#161c25]">Institutional Actions</h4>
 
 							<div className="space-y-4">
-								<button
-									type="button"
+								<NavLink
+									to="/students"
 									className="w-full rounded-lg bg-[#1457d2] px-6 py-4 flex items-center justify-between text-white font-semibold text-[14px] shadow-[0_4px_8px_rgba(20,87,210,0.28)] transition hover:bg-[#1048b3]"
 								>
 									<span className="flex items-center gap-2">
@@ -153,10 +154,10 @@ function Overview() {
 									<svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
 										<path d="M5 12h14M12 5l7 7-7 7" />
 									</svg>
-								</button>
+								</NavLink>
 
-								<button
-									type="button"
+								<NavLink
+									to="/faculty"
 									className="w-full rounded-lg bg-white border border-[#dde2e9] px-6 py-4 flex items-center justify-between text-[#161c25] font-semibold text-[14px] transition hover:bg-[#f8f9fa]"
 								>
 									<span className="flex items-center gap-2">
@@ -169,7 +170,7 @@ function Overview() {
 									<svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
 										<path d="M5 12h14M12 5l7 7-7 7" />
 									</svg>
-								</button>
+								</NavLink>
 
 								<div className="rounded-lg bg-white border border-[#dde2e9] p-6 text-center">
 									<h5 className="text-[14px] font-semibold text-[#d9651f]">Annual Report 2024</h5>

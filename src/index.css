@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@import "./registerStudent.css";
 
 @keyframes marquee {
   0% { transform: translateX(0); }

@@ -43,9 +43,6 @@ function HeroSection() {
 							>
 								Sign Up Now
 							</a>
-							<button type="button" className="flex items-center gap-2 text-white transition hover:opacity-80">
-								<img src={'data:image/svg+xml,' + encodeURIComponent('<svg viewBox="0 0 64 64" fill="white" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="31" fill="none" stroke="white" stroke-width="2"/><polygon points="26,20 26,44 46,32" fill="white"/></svg>')} alt="Play" className="h-14 w-14 opacity-90" />
-							</button>
 						</div>
 
 						<div className="mt-10 flex flex-wrap items-center gap-5">

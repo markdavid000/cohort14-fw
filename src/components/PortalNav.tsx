@@ -11,6 +11,7 @@ import {
 import { navItems as defaultNavItems, type NavItem } from './navItems'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useDisconnect } from 'wagmi'
+import { useWeb3Auth } from '@web3auth/modal/react'
 import WalletInfo from './WalletInfo'
 
 type PortalNavProps = {
@@ -59,12 +60,27 @@ function PortalNav({
 	subtitle = 'Academic Management',
 }: PortalNavProps) {
 	const { disconnect } = useDisconnect()
+	const { web3Auth, isConnected: isWeb3AuthConnected } = useWeb3Auth()
 	const navigate = useNavigate()
 	const [showDisconnectModal, setShowDisconnectModal] = useState(false)
 
-	const handleDisconnect = () => {
-		disconnect()
-		navigate('/home')
+	const handleDisconnect = async () => {
+		try {
+			// Disconnect wagmi wallet if connected
+			disconnect()
+			
+			// Logout from Web3Auth if connected
+			if (isWeb3AuthConnected && web3Auth) {
+				await web3Auth.logout()
+			}
+			
+			// Navigate to home page
+			navigate('/home')
+		} catch (error) {
+			console.error('Error disconnecting:', error)
+			// Still navigate even if there's an error
+			navigate('/home')
+		}
 	}
 
 	return (

@@ -24,12 +24,6 @@ export const Student: React.FC<IStudentRegistryComp> = ({
   lastName,
   id,
   gender,
-  suspended,
-  paymentStatus,
-  timeStamp,
-  level,
-  fees,
-  address,
   setStudents,
   students,
   handleUpdateStudent

@@ -1,32 +1,8 @@
-interface Task {
-  id: number;
-  text: string;
-  completed: boolean;
-  completedAt: string | null;
-}
-
-
-// Initial Demo task 
-const initialTasks: Task[] = [
-  { id: 1, text: "Exercise", completed: false, completedAt: null },
-  { id: 2, text: "Go to shopping", completed: true, completedAt: "10:30 AM" },
-  { id: 3, text: "Meet my friends", completed: false, completedAt: null },
-  {
-    id: 4,
-    text: "Responding to client request",
-    completed: false,
-    completedAt: null,
-  },
-  {
-    id: 5,
-    text: "Finish writing the report",
-    completed: false,
-    completedAt: null,
-  },
-];
+import { useTodo } from "../hooks/useHooks";
 
 export default function TodoList() {
-  const tasks = initialTasks;
+  const { tasks, markComplete, deleteTodo } = useTodo();
+
 
   return (
     <div
@@ -92,11 +68,12 @@ export default function TodoList() {
                 {/* Custom Checkbox */}
                 <button
                   type="button"
-                  disabled
+                  onClick={() => void markComplete(task.id)}
+                  disabled={task.completed}
                   className={`w-5 h-5 rounded flex items-center justify-center border-2 flex-shrink-0 transition-all duration-150 ${
                     task.completed
-                      ? "bg-yellow-400 border-yellow-400"
-                      : "bg-transparent border-slate-500"
+                      ? "bg-yellow-400 border-yellow-400 cursor-not-allowed"
+                      : "bg-transparent border-slate-500 cursor-pointer"
                   }`}
                   aria-label={
                     task.completed ? "Mark incomplete" : "Mark complete"
@@ -165,9 +142,8 @@ export default function TodoList() {
                 </button>
                 <button
                   type="button"
-                  disabled
-                  className="bg-red-500/60 text-white text-xs font-semibold px-4 py-1.5 rounded cursor-not-allowed"
-             
+                  onClick={() => void deleteTodo(task.id)}
+                  className="bg-red-500/60 text-white text-xs font-semibold px-4 py-1.5 rounded cursor-pointer"
                 >
                   Delete
                 </button>

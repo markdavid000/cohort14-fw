@@ -1,5 +1,3 @@
-import { useState } from "react";
- 
 import TodoList from "./components/Todo";
 
 function App() {

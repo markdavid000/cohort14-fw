@@ -1,31 +1,41 @@
 {
-  "hash": "53a22842",
+  "hash": "d3ef6138",
   "configHash": "5bfca6c4",
-  "lockfileHash": "2a906015",
-  "browserHash": "3457af42",
+  "lockfileHash": "b98ecdd9",
+  "browserHash": "84b01eca",
   "optimized": {
     "react-dom/client": {
       "src": "../../node_modules/react-dom/client.js",
       "file": "react-dom_client.js",
-      "fileHash": "c4b3ed0c",
+      "fileHash": "9f2b0568",
       "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "528ab6d7",
+      "needsInterop": false
     },
     "react": {
       "src": "../../node_modules/react/index.js",
       "file": "react.js",
-      "fileHash": "3d568a51",
+      "fileHash": "9593c5b3",
       "needsInterop": true
     },
     "react/jsx-dev-runtime": {
       "src": "../../node_modules/react/jsx-dev-runtime.js",
       "file": "react_jsx-dev-runtime.js",
-      "fileHash": "5bccb9fa",
+      "fileHash": "26caf273",
       "needsInterop": true
     }
   },
   "chunks": {
-    "react-Na5-BvaJ": {
-      "file": "react-Na5-BvaJ.js",
+    "react-TUYU05Ph": {
+      "file": "react-TUYU05Ph.js",
+      "isDynamicEntry": false
+    },
+    "react-dom-DMGCgcj7": {
+      "file": "react-dom-DMGCgcj7.js",
       "isDynamicEntry": false
     }
   }

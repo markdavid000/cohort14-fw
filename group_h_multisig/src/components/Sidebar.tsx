@@ -1,7 +1,7 @@
 
 import { Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Clock, Plus, Settings, Square } from 'lucide-react';
-import { cn } from '@/lib/utils';
+// import { cn } from '../lib/utils';
 
 interface NavItem {
   label: string;
@@ -59,7 +59,7 @@ export default function Sidebar() {
           return (
             <Link
               key={item.href}
-              href={item.href}
+              to={item.href}
               className="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors"
               style={
                 isActive

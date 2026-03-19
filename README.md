@@ -37,16 +37,11 @@ src/
 │   │   └── Layout.tsx
 │   └── wallet/
 │       ├── AddressSwitcher.tsx   ← Simulate different signers
-│       └── WalletButton.tsx      ← Real MetaMask connect (live mode)
-├── config/
-│   └── wagmi.ts                  ← Wagmi + Sepolia config
-├── context/
-│   └── WalletContext.tsx         ← Global connected address state
+├
 ├── hooks/
 │   ├── useAccounts.ts
 │   ├── useTransactions.ts        ← Subscribes to transactionStore
 │   ├── useWallet.ts              ← Wagmi wallet connection
-│   ├── useContract.ts            ← On-chain reads (balance, signers)
 │   └── useModal.ts
 ├── pages/
 │   ├── Landing.tsx
@@ -64,131 +59,6 @@ src/
 │   └── IMultisig.ts
 ├── utils/
 │   └── mockData.ts               ← Single account + 4 owners, no mock txns
-├── App.tsx
-├── main.tsx
-└── index.css
-```
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm or yarn
-- MetaMask (for live mode)
-
-### Installation
-
-```bash
-# Install dependencies
-npm install
-
-# Install required packages
-npm install react-router-dom wagmi viem @tanstack/react-query
-npm install -D @types/react-router-dom
-```
-
-### Development
-
-```bash
-npm run dev
-# Open http://localhost:5173
-```
-
-### Production Build
-
-```bash
-npm run build
-# Output in dist/
-```
-
-## 🔑 Contract Addresses (Sepolia)
-
-Update these in `src/utils/mockData.ts` once deployed:
-
-```ts
-export const mockAccount: Account = {
-  name: 'MultisigLabs',
-  address: '0xYOUR_MULTISIG_CONTRACT',   // Multisig.sol deployment
-  tokenAddress: '0xYOUR_ERC20_CONTRACT', // ERC20 token deployment
-  threshold: 2,
-  // ...
-};
-```
-
-> The ERC20 token is deployed first, then passed as `_token` to the Multisig constructor which mints `10,000,000e18` tokens to itself on deployment.
-
-## 🎯 Transaction Flow
-
-```
-1. Signer creates transaction  →  /new-transaction
-         ↓
-2. Redirected to /approve?txId=xxx&role=initiator
-         ↓
-3. Initiator clicks "Approve as Initiator"  (approveTxnWithId)
-         ↓
-4. Other signers visit /approve, see pending tx, click "Approve"  (approveTransaction)
-         ↓
-5. When confirmations >= threshold → auto-executes, status → "executed"
-```
-
-## 🏗️ Write Functions (6 Simulated)
-
-| # | UI Action | Contract Function | Access |
-|---|-----------|------------------|--------|
-| 1 | Create Transaction | `createATransaction(to, amount)` | Any signer |
-| 2 | Approve as Initiator | `approveTxnWithId(txnId)` | Initiator only |
-| 3 | Approve as Signer | `approveTransaction(txnId)` | Any signer |
-| 4 | Cancel Transaction | `cancelTxn(txnId)` | Initiator only |
-| 5 | Change Signer | `changeSigner(old, new)` | Owner only |
-| 6 | Transfer Ownership | `changeOwner(newOwner)` | Owner only |
-
-## 🔄 Simulation vs Live Mode
-
-The service is **dual-mode** — it runs simulation by default, switches to live contract calls automatically when a wallet is connected on Sepolia.
-
-```ts
-// Simulation (no wallet needed)
-await multisigService.createTransaction(accountId, to, value, data, address);
-
-// Live (pass clients from useWallet())
-await multisigService.createTransaction(accountId, to, value, data, address, {
-  walletClient,
-  publicClient,
-  contractAddress: '0x...',
-});
-```
-
-Pages auto-detect which mode to use based on `isConnected && !isWrongNetwork`.
-
-## 💾 Data Persistence
-
-Transactions are stored in `localStorage` under key `multisig_transactions_v1` as a JSON array. They survive page refreshes and browser restarts until explicitly cleared.
-
-```js
-// Clear all transaction data from browser console:
-localStorage.removeItem('multisig_transactions_v1'); location.reload();
-```
-
-Or use the **Reset Data** button on the Home page.
-
-## 👥 Simulated Signers
-
-Switch between signers using the **address switcher** in the top-right header to simulate different wallet addresses approving transactions:
-
-| # | Name | Role |
-|---|------|------|
-| ★ | Henry P | Contract owner (Settings access) |
-| 2 | Signer 22 | Signer |
-| 3 | Signer 8 | Signer |
-| 4 | Alice K | Signer |
-
-> Settings (Change Signer, Transfer Ownership) are only visible when acting as the contract owner (★ Henry P).
-
-## 🎨 Color Scheme
-
-```css
-/* src/index.css */
 @theme {
   --color-primary: #7fffd4;
   --color-primary-hover: #6eeec3;

@@ -6,7 +6,7 @@ import { Button } from '../components/buttons/Button';
 import { AccountCard } from '../components/cards/AccountCard';
 
 export const Landing: React.FC = () => {
-  const { accounts, loading, selectAccount } = useAccounts();
+  const { accounts, selectAccount } = useAccounts();
   const navigate = useNavigate();
 
   const handleAccountClick = (accountId: string) => {

@@ -1,58 +1,43 @@
 // src/hooks/useTransactions.ts
-// Added: refetch(), historyTransactions, filter/setFilter for ApproveTransaction page
+// Subscribes to transactionStore — re-renders automatically whenever
+// any write function (create/approve/cancel) mutates the store.
 
-import { useState, useEffect, useCallback } from 'react';
-import { multisigService } from '../services/MultisigService';
-import { type Transaction, type TransactionStatus } from '../types/IMultisig';
+import { useState, useEffect } from 'react';
+import { transactionStore } from '../store/transactionStore';
+import { type Transaction } from '../types/IMultisig';
 
 interface UseTransactionsReturn {
   transactions: Transaction[];
-  queuedTransactions: Transaction[];     // pending only
-  historyTransactions: Transaction[];    // executed + cancelled
-  filter: TransactionStatus | 'all';
-  setFilter: (f: TransactionStatus | 'all') => void;
-  refetch: () => void;
+  queuedTransactions: Transaction[];
+  historyTransactions: Transaction[];
   isLoading: boolean;
 }
 
-export const useTransactions = (
-  accountId: string | undefined
-): UseTransactionsReturn => {
+export const useTransactions = (accountId: string | undefined): UseTransactionsReturn => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [filter, setFilter] = useState<TransactionStatus | 'all'>('all');
-  const [isLoading, setIsLoading] = useState(false);
-
-  const fetchTransactions = useCallback(() => {
-    if (!accountId) {
-      setTransactions([]);
-      return;
-    }
-    setIsLoading(true);
-    // ABI integration: replace with on-chain event log fetch or subgraph query
-    const txs = multisigService.getAccountTransactions(accountId);
-    setTransactions(txs);
-    setIsLoading(false);
-  }, [accountId]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetchTransactions();
-  }, [fetchTransactions]);
+    if (!accountId) {
+      setTransactions([]);
+      setIsLoading(false);
+      return;
+    }
 
-  const queuedTransactions = transactions.filter(
-    (tx) => tx.status === 'pending'
-  );
+    // Initial read
+    setTransactions(transactionStore.getByAccount(accountId));
+    setIsLoading(false);
 
-  const historyTransactions = transactions.filter(
-    (tx) => tx.status !== 'pending'
-  );
+    // Subscribe — called every time the store mutates
+    const unsubscribe = transactionStore.subscribe(() => {
+      setTransactions(transactionStore.getByAccount(accountId));
+    });
 
-  return {
-    transactions,
-    queuedTransactions,
-    historyTransactions,
-    filter,
-    setFilter,
-    refetch: fetchTransactions,
-    isLoading,
-  };
+    return unsubscribe;
+  }, [accountId]);
+
+  const queuedTransactions = transactions.filter((tx) => tx.status === 'pending');
+  const historyTransactions = transactions.filter((tx) => tx.status !== 'pending');
+
+  return { transactions, queuedTransactions, historyTransactions, isLoading };
 };

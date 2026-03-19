@@ -1,66 +1,68 @@
 // src/hooks/useAccounts.ts
-
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { type Account, type Owner } from '../types/IMultisig';
-import { mockAccounts } from '../utils/mockData';
+import { mockAccounts, seedMockData } from '../utils/mockData';
 
-export const useAccounts = () => {
-  const [accounts, setAccounts] = useState<Account[]>(mockAccounts);
-  const [selectedAccount, setSelectedAccount] = useState<Account | null>(
-    mockAccounts[0] ?? null
-  );
-  const [loading, setLoading] = useState(false);
+interface UseAccountsReturn {
+  accounts: Account[];
+  selectedAccount: Account | null;
+  selectAccount: (account: Account) => void;
+  selectAccountById: (id: string) => void;   // ← used by Layout / Header
+  createAccount: (name: string, threshold: number, ownerAddresses: string[]) => void;
+}
+
+export const useAccounts = (): UseAccountsReturn => {
+  const [accounts, setAccounts] = useState<Account[]>([]);
+  const [selectedAccount, setSelectedAccount] = useState<Account | null>(null);
 
   useEffect(() => {
-    // Simulate an API call / loading state (this is purely cosmetic)
-    setLoading(true);
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 500);
-    return () => clearTimeout(timer);
+    seedMockData();
+    setAccounts(mockAccounts);
+    setSelectedAccount(mockAccounts[0] ?? null);
   }, []);
 
-  const selectAccount = (accountId: string) => {
-    const account = accounts.find((acc) => acc.id === accountId);
-    if (account) {
-      setSelectedAccount(account);
-    }
+  const selectAccount = (account: Account) => {
+    setSelectedAccount(account);
   };
 
-  const createAccount = (name: string, threshold: number, owners: string[]) => {
-    const now = new Date().toISOString();
-    const resolvedOwners: Owner[] = owners.map((address) => ({
+  // Accepts a plain string id — used wherever onAccountSelect: (id: string) => void
+  const selectAccountById = (id: string) => {
+    const found = accounts.find((a) => a.id === id);
+    if (found) setSelectedAccount(found);
+  };
+
+  const createAccount = (
+    name: string,
+    threshold: number,
+    ownerAddresses: string[]
+  ) => {
+    const owners: Owner[] = ownerAddresses.map((address) => ({
       address,
-      addedAt: now,
+      addedAt: new Date().toISOString(),
       isActive: true,
     }));
 
     const newAccount: Account = {
       id: Date.now().toString(),
       name,
-      address: `fuel1rku...${Math.random().toString(36).substring(7)}`,
+      address: `0x${Math.random().toString(16).slice(2).padEnd(40, '0')}`,
       balance: '0',
       threshold,
-      owners: resolvedOwners,
+      owners,
       network: 'sepolia',
-      tokenAddress: '',
-      createdAt: now,
+      tokenAddress: '0x6c8DC5766872302FE930B23aE655DDDa362A0aB5',
+      createdAt: new Date().toISOString(),
     };
-    setAccounts([...accounts, newAccount]);
+
+    setAccounts((prev) => [...prev, newAccount]);
     setSelectedAccount(newAccount);
   };
 
   return {
     accounts,
     selectedAccount,
-    loading,
     selectAccount,
+    selectAccountById,
     createAccount,
   };
 };
-
-
-
-
-
-

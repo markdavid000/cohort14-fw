@@ -1,6 +1,5 @@
 // src/components/layout/Sidebar.tsx
-// Updated nav to include: New Transaction, Approve, Settings (ChangeSigner / ChangeOwner)
-// Matches the dark teal (#7FFFD4) colour system visible in the screenshots.
+// Shown only on lg+ via Layout's CSS. On mobile it slides in as a drawer.
 
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -79,76 +78,43 @@ const SETTINGS_NAV = [
   },
 ];
 
-export const Sidebar: React.FC<SidebarProps> = ({
-  selectedAccount,
-  accounts,
-  onAccountSelect,
-}) => {
+export const Sidebar: React.FC<SidebarProps> = ({ selectedAccount }) => {
   const location = useLocation();
-  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(true);
 
   const isActive = (href: string) => location.pathname === href;
 
   return (
-    <aside className="w-64 h-screen bg-[#111] border-r border-gray-800 flex flex-col shrink-0">
+    <aside className="w-full h-full bg-[#111] border-r border-gray-800 flex flex-col">
+
       {/* Logo */}
-      <div className="p-5 border-b border-gray-800">
+      <div className="p-5 border-b border-gray-800 shrink-0">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-[#7FFFD4] flex items-center justify-center">
+          <div className="w-7 h-7 rounded-lg bg-[#7FFFD4] flex items-center justify-center shrink-0">
             <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5}
                 d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
           </div>
-          <span className="text-white font-bold text-base">Multisig</span>
+          <span className="text-white font-bold text-base">MultisigLabs</span>
           <span className="text-[#7FFFD4] text-xs font-mono ml-auto px-1.5 py-0.5
-                           border border-[#7FFFD4]/30 rounded">sepolia</span>
+                           border border-[#7FFFD4]/30 rounded">
+            sepolia
+          </span>
         </div>
       </div>
 
-      {/* Account selector */}
-      <div className="p-4 border-b border-gray-800">
-        <p className="text-gray-500 text-xs uppercase tracking-wider mb-2">Account</p>
-        <div className="space-y-1">
-          {accounts.map((acc) => (
-            <button
-              key={acc.id}
-              onClick={() => onAccountSelect(acc)}
-              className={`w-full flex items-center gap-2 p-2 rounded-lg text-left transition-colors
-                ${acc.id === selectedAccount.id
-                  ? 'bg-[#7FFFD4]/10 border border-[#7FFFD4]/20'
-                  : 'hover:bg-white/5 border border-transparent'
-                }`}
-            >
-              <div className={`w-7 h-7 rounded-full bg-gradient-to-br from-[#7FFFD4]/30 to-blue-500/20
-                              border flex items-center justify-center text-xs font-bold shrink-0
-                              ${acc.id === selectedAccount.id ? 'border-[#7FFFD4]/40 text-[#7FFFD4]' : 'border-gray-700 text-gray-400'}`}>
-                {acc.name.slice(0, 2).toUpperCase()}
-              </div>
-              <div className="min-w-0">
-                <p className={`text-xs font-medium truncate
-                  ${acc.id === selectedAccount.id ? 'text-white' : 'text-gray-400'}`}>
-                  {acc.name}
-                </p>
-                <p className="text-gray-600 text-xs font-mono truncate">
-                  {acc.address.slice(0, 8)}…
-                </p>
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Main nav */}
+      {/* Nav */}
       <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
         {NAV.map((item) => (
           <Link
             key={item.href}
             to={item.href}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors
+            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm
+                        transition-colors border
               ${isActive(item.href)
-                ? 'bg-[#7FFFD4]/10 text-[#7FFFD4] border border-[#7FFFD4]/20'
-                : 'text-gray-400 hover:text-white hover:bg-white/5'
+                ? 'bg-[#7FFFD4]/10 text-[#7FFFD4] border-[#7FFFD4]/20'
+                : 'text-gray-400 hover:text-white hover:bg-white/5 border-transparent'
               }`}
           >
             {item.icon}
@@ -156,7 +122,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </Link>
         ))}
 
-        {/* Settings section */}
+        {/* Settings */}
         <div className="pt-4">
           <button
             onClick={() => setSettingsOpen((v) => !v)}
@@ -165,10 +131,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
           >
             <span>Settings</span>
             <svg
-              className={`w-3 h-3 transition-transform ${settingsOpen ? 'rotate-180' : ''}`}
+              className={`w-3 h-3 transition-transform duration-200
+                          ${settingsOpen ? 'rotate-180' : ''}`}
               fill="none" stroke="currentColor" viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M19 9l-7 7-7-7" />
             </svg>
           </button>
 
@@ -178,10 +146,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <Link
                   key={item.href}
                   to={item.href}
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm
+                              transition-colors border
                     ${isActive(item.href)
-                      ? 'bg-[#7FFFD4]/10 text-[#7FFFD4] border border-[#7FFFD4]/20'
-                      : 'text-gray-400 hover:text-white hover:bg-white/5'
+                      ? 'bg-[#7FFFD4]/10 text-[#7FFFD4] border-[#7FFFD4]/20'
+                      : 'text-gray-400 hover:text-white hover:bg-white/5 border-transparent'
                     }`}
                 >
                   {item.icon}
@@ -194,7 +163,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-gray-800">
+      <div className="p-4 border-t border-gray-800 shrink-0">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-[#7FFFD4] animate-pulse" />
           <span className="text-gray-500 text-xs">Sepolia testnet</span>

@@ -26,7 +26,7 @@ export const Transactions: React.FC = () => {
     <Layout
       selectedAccount={selectedAccount}
       accounts={accounts}
-      onAccountSelect={selectAccount}
+      onAccountSelect={(id) => selectAccount(accounts.find((a) => a.id === id)!)}
       onNewTransaction={openNewTransaction}
     >
       <div>

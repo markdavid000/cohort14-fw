@@ -31,7 +31,7 @@ export const Home: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         <StatsCard
           label="Balance"
-          value={`${selectedAccount.balance} TOKEN`}
+          value={`${selectedAccount.balance} MTK`}
           icon={
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}

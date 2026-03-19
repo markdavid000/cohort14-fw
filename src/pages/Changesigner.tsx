@@ -127,7 +127,7 @@ export const ChangeSigner: React.FC = () => {
                           : 'border-gray-800 hover:border-gray-600 bg-[#111]'
                         }`}
                     >
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#7FFFD4]/20 to-blue-500/20
+                      <div className="w-8 h-8 rounded-full bg-linear-to-br from-[#7FFFD4]/20 to-blue-500/20
                                       border border-gray-700 flex items-center justify-center text-xs font-bold
                                       text-gray-300 shrink-0">
                         {owner.address.slice(2, 4).toUpperCase()}

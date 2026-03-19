@@ -109,7 +109,7 @@ export const ChangeOwner: React.FC = () => {
                   Current Owner
                 </label>
                 <div className="bg-[#111] border border-gray-800 rounded-lg p-3 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#7FFFD4]/30 to-blue-500/20
+                  <div className="w-8 h-8 rounded-full bg-linear-to-br from-[#7FFFD4]/30 to-blue-500/20
                                   border border-[#7FFFD4]/20 flex items-center justify-center text-xs font-bold
                                   text-[#7FFFD4]">
                     {currentOwner?.address.slice(2, 4).toUpperCase()}

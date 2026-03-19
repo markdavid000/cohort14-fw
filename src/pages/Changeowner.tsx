@@ -70,10 +70,10 @@ export const ChangeOwner: React.FC = () => {
     <Layout
       selectedAccount={selectedAccount}
       accounts={accounts}
-      onAccountSelect={selectAccount}
+      onAccountSelect={(id) => selectAccount(accounts.find((a) => a.id === id)!)}
       onNewTransaction={openNewTransaction}
     >
-      <div className="max-w-xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-white text-2xl font-semibold">Transfer Ownership</h1>

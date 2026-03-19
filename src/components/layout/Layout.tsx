@@ -1,5 +1,5 @@
 // src/components/layout/Layout.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import { type Account } from '../../types/IMultisig';
@@ -19,8 +19,11 @@ export const Layout: React.FC<LayoutProps> = ({
   onAccountSelect,
   onNewTransaction,
 }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   const handleAccountSelect = (account: Account) => {
     onAccountSelect(account.id);
+    setSidebarOpen(false);
   };
 
   if (!selectedAccount) {
@@ -33,27 +36,59 @@ export const Layout: React.FC<LayoutProps> = ({
 
   return (
     <div className="flex h-screen bg-black overflow-hidden">
-      {/* Sidebar — full height, scrolls independently */}
-      <aside className="w-72 shrink-0 h-screen overflow-y-auto border-r border-gray-800">
+
+      {/* ------------------------------------------------------------------ */}
+      {/* Mobile drawer backdrop                                               */}
+      {/* ------------------------------------------------------------------ */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-20 bg-black/60 backdrop-blur-sm lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* ------------------------------------------------------------------ */}
+      {/* SIDEBAR — hidden on mobile, always visible on lg+                   */}
+      {/* On mobile: slides in as a fixed drawer over the content             */}
+      {/* ------------------------------------------------------------------ */}
+      <aside
+        className={`
+          fixed inset-y-0 left-0 z-30 w-72 h-screen overflow-y-auto
+          transform transition-transform duration-300 ease-in-out
+          lg:relative lg:translate-x-0 lg:z-auto lg:flex lg:shrink-0
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+        `}
+      >
         <Sidebar
           selectedAccount={selectedAccount}
           accounts={accounts}
           onAccountSelect={handleAccountSelect}
-          onNewTransaction={onNewTransaction}
+          onNewTransaction={() => {
+            onNewTransaction();
+            setSidebarOpen(false);
+          }}
         />
       </aside>
 
-      {/* Right column — header pinned, main scrolls */}
+      {/* ------------------------------------------------------------------ */}
+      {/* RIGHT COLUMN                                                         */}
+      {/* ------------------------------------------------------------------ */}
       <div className="flex flex-col flex-1 min-w-0 h-screen">
+
+        {/* Single header for all breakpoints.                                */}
+        {/* Header component receives onMenuClick — it renders the hamburger  */}
+        {/* on mobile and hides it on lg+.                                    */}
         <header className="shrink-0 border-b border-gray-800">
           <Header
             selectedAccount={selectedAccount}
             accounts={accounts}
             onAccountSelect={onAccountSelect}
+            onMenuClick={() => setSidebarOpen(true)}
           />
         </header>
 
-        <main className="flex-1 overflow-y-auto p-6">
+        {/* Scrollable page content */}
+        <main className="flex-1 overflow-y-auto p-4 md:p-6">
           {children}
         </main>
       </div>

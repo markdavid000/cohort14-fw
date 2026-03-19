@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 interface Task {
   id: number;
   text: string;
@@ -26,7 +28,12 @@ const initialTasks: Task[] = [
 ];
 
 export default function TodoList() {
-  const tasks = initialTasks;
+  const [tasks, setTasks] = useState(initialTasks);
+  const [query, setQuery] = useState("");
+
+  const filteredTasks = tasks.filter(task =>
+    task.text.toLowerCase().includes(query.toLowerCase())
+  );
 
   return (
     <div
@@ -64,117 +71,122 @@ export default function TodoList() {
         <div className="flex gap-3 mb-6">
           <input
             type="text"
-            value=""
-         
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
             placeholder="Search tasks..."
             className="flex-1 rounded-lg px-4 py-3 text-slate-300 placeholder-slate-500 outline-none text-sm border border-slate-600 focus:border-yellow-400 transition-colors"
             style={{ backgroundColor: "transparent" }}
           />
-          <button
-            type="button"
-            disabled
-            className="bg-slate-700/70 text-slate-200 font-semibold px-6 py-3 rounded-lg uppercase tracking-widest text-xs cursor-not-allowed"
+          {/* <button
+            type="submit"
+          
+            className="bg-slate-700/70 text-slate-200 font-semibold px-6 py-3 rounded-lg uppercase tracking-widest text-xs"
             
           >
             Search
-          </button>
+          </button> */}
         </div>
 
         {/* Task List */}
         <ul className="flex flex-col gap-2">
-          {tasks.map((task) => (
-            <li
-              key={task.id}
-              className="flex items-center justify-between rounded-lg px-4 py-3 border border-slate-700/50 hover:border-slate-600 transition-colors"
-              style={{ backgroundColor: "#0d3347" }}
-            >
-              <div className="flex items-center gap-3 flex-1 min-w-0">
-                {/* Custom Checkbox */}
-                <button
-                  type="button"
-                  disabled
-                  className={`w-5 h-5 rounded flex items-center justify-center border-2 flex-shrink-0 transition-all duration-150 ${
-                    task.completed
-                      ? "bg-yellow-400 border-yellow-400"
-                      : "bg-transparent border-slate-500"
-                  }`}
-                  aria-label={
-                    task.completed ? "Mark incomplete" : "Mark complete"
-                  }
-                >
-                  {task.completed && (
-                    <svg
-                      className="w-3 h-3 text-slate-900"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={3}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  )}
-                </button>
-
-                {/* Task Text + Completed Time */}
-                <div className="flex flex-col min-w-0">
-                  <span
-                    className={`text-sm transition-all duration-150 truncate ${
+          {filteredTasks.length > 0 ? (
+            filteredTasks.map((task) => (
+              <li
+                key={task.id}
+                className="flex items-center justify-between rounded-lg px-4 py-3 border border-slate-700/50 hover:border-slate-600 transition-colors"
+                style={{ backgroundColor: "#0d3347" }}
+              >
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  {/* Custom Checkbox */}
+                  <button
+                    type="button"
+                    disabled
+                    className={`w-5 h-5 rounded flex items-center justify-center border-2 flex-shrink-0 transition-all duration-150 ${
                       task.completed
-                        ? "line-through text-slate-500"
-                        : "text-slate-200"
+                        ? "bg-yellow-400 border-yellow-400"
+                        : "bg-transparent border-slate-500"
                     }`}
+                    aria-label={
+                      task.completed ? "Mark incomplete" : "Mark complete"
+                    }
                   >
-                    {task.text}
-                  </span>
-
-                  {/* Completed At Time */}
-                  {task.completed && task.completedAt && (
-                    <span className="text-xs text-yellow-400/70 mt-0.5 flex items-center gap-1">
+                    {task.completed && (
                       <svg
-                        className="w-3 h-3"
+                        className="w-3 h-3 text-slate-900"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
-                        strokeWidth={2}
+                        strokeWidth={3}
                       >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          d="M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z"
+                          d="M5 13l4 4L19 7"
                         />
                       </svg>
-                      Completed at {task.completedAt}
+                    )}
+                  </button>
+
+                  {/* Task Text + Completed Time */}
+                  <div className="flex flex-col min-w-0">
+                    <span
+                      className={`text-sm transition-all duration-150 truncate ${
+                        task.completed
+                          ? "line-through text-slate-500"
+                          : "text-slate-200"
+                      }`}
+                    >
+                      {task.text}
                     </span>
-                  )}
+
+                    {/* Completed At Time */}
+                    {task.completed && task.completedAt && (
+                      <span className="text-xs text-yellow-400/70 mt-0.5 flex items-center gap-1">
+                        <svg
+                          className="w-3 h-3"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z"
+                          />
+                        </svg>
+                        Completed at {task.completedAt}
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
 
-              {/* Action Buttons */}
-              <div className="flex items-center gap-2 ml-3 flex-shrink-0">
-                <button
-                  type="button"
-                  disabled
-                  className="bg-blue-500/60 text-white text-xs font-semibold px-4 py-1.5 rounded cursor-not-allowed"
-                  aria-disabled="true"
-                >
-                  Edit
-                </button>
-                <button
-                  type="button"
-                  disabled
-                  className="bg-red-500/60 text-white text-xs font-semibold px-4 py-1.5 rounded cursor-not-allowed"
-             
-                >
-                  Delete
-                </button>
-              </div>
+                {/* Action Buttons */}
+                <div className="flex items-center gap-2 ml-3 flex-shrink-0">
+                  <button
+                    type="button"
+                    disabled
+                    className="bg-blue-500/60 text-white text-xs font-semibold px-4 py-1.5 rounded cursor-not-allowed"
+                    aria-disabled="true"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    disabled
+                    className="bg-red-500/60 text-white text-xs font-semibold px-4 py-1.5 rounded cursor-not-allowed"
+              
+                  >
+                    Delete
+                  </button>
+                </div>
+              </li>
+            ))
+          ) : (
+            <li className="text-center text-slate-500 py-4">
+              No tasks found matching "{query}"
             </li>
-          ))}
-
+          )}
         </ul>
       </div>
     </div>

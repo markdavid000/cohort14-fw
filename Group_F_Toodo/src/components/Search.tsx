@@ -1,48 +1,47 @@
 import { useState } from 'react';
 
-interface Todo {
-  id: string;
-  title: string;
-  description?: string;
+interface Task {
+  id: number;
+  text: string;
   completed: boolean;
+  completedAt: string | null;
 }
 
 interface SearchProps {
-  todos: Todo[];
-  onSearchChange?: (results: Todo[]) => void;
+  tasks: Task[];
+  onSearchChange?: (results: Task[]) => void;
 }
 
-export function Search({ todos, onSearchChange }: SearchProps) {
+export function Search({ tasks, onSearchChange }: SearchProps) {
   const [query, setQuery] = useState('');
 
-  const searchTodos = (searchQuery: string): Todo[] => {
+  const searchTasks = (searchQuery: string): Task[] => {
     if (!searchQuery.trim()) {
-      return todos;
+      return tasks;
     }
 
     const lowerQuery = searchQuery.toLowerCase();
-    return todos.filter((todo) =>
-      todo.title.toLowerCase().includes(lowerQuery) ||
-      (todo.description?.toLowerCase().includes(lowerQuery) ?? false)
+    return tasks.filter((task) =>
+      task.text.toLowerCase().includes(lowerQuery) 
     );
   };
 
   const handleSearch = (value: string) => {
     setQuery(value);
-    const results = searchTodos(value);
+    const results = searchTasks(value);
     onSearchChange?.(results);
   };
 
   const clearSearch = () => {
     setQuery('');
-    onSearchChange?.(todos);
+    onSearchChange?.(tasks);
   };
 
   return {
     query,
-    searchTodos,
+    searchTasks,
     handleSearch,
     clearSearch,
-    results: searchTodos(query),
+    results: searchTasks(query),
   };
 }

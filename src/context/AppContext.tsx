@@ -205,6 +205,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [selectedPropertyId, setSelectedPropertyId] = useState<number | null>(
     null
   );
+  console.log(setProperties(MOCK_PROPERTIES));
   const [activeModal, setActiveModal] = useState<ModalType>(null);
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [filterType, setFilterType] = useState("");

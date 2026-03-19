@@ -6,8 +6,8 @@
  */
 
 import { useState, useCallback } from 'react';
-import type { VaultBalance } from '@/lib/types';
-import { mockVaultBalance } from '@/lib/mockData';
+import type { VaultBalance } from '../lib/types';
+import { mockVaultBalance } from '../lib/mockData';
 
 interface UseVaultBalanceReturn {
   balance: VaultBalance | null;

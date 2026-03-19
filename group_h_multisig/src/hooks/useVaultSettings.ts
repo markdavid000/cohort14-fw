@@ -14,8 +14,8 @@
  */
 
 import { useState, useCallback } from 'react';
-import type { VaultConfig } from '@/lib/types';
-import { mockVaultConfig } from '@/lib/mockData';
+import type { VaultConfig } from '../lib/types';
+import { mockVaultConfig } from '../lib/mockData';
 
 /**
  * State management for vault settings operations

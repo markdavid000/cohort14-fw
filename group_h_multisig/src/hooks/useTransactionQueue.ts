@@ -6,8 +6,8 @@
  */
 
 import { useState, useCallback } from 'react';
-import type { Transaction } from '@/lib/types';
-import { mockTransactionQueue } from '@/lib/mockData';
+import type { Transaction } from '../lib/types';
+import { mockTransactionQueue } from '../lib/mockData';
 
 interface UseTransactionQueueReturn {
   transactions: Transaction[];

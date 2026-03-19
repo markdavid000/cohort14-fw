@@ -15,7 +15,7 @@ import {
   AlertDialogDescription,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog'
+} from './ui/alert-dialog'
 import { AlertCircle } from 'lucide-react'
 
 interface ConfirmDialogProps {
@@ -37,7 +37,7 @@ interface ConfirmDialogProps {
   /**
    * Dialog description/message
    */
-  description: string;
+  description: string | React.ReactNode;
 
   /**
    * Label for confirm button

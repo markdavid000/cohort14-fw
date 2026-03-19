@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary-dark: #0f1115;
+    --color-secondary-dark: #16181d;
+    --color-accent: #00d4ff;
+    --color-text-main: #ffffff;
+    --color-text-muted: #8b8d91;
+    --color-success: #00e676;
+}
+
+body {
+    background-color: var(--color-primary-dark);
+    color: var(--color-text-main);
+    margin: 0;
+    font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

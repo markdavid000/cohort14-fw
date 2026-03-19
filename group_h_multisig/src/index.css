@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================= ROOT VARIABLES ================= */
+:root {
+  --background: #fafafa;
+  --foreground: #1a1a1a;
+
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+
+  --popover: #ffffff;
+  --popover-foreground: #1a1a1a;
+
+  --primary: #8B3A62;
+  --primary-foreground: #ffffff;
+
+  --secondary: #f5f5f5;
+  --secondary-foreground: #1a1a1a;
+
+  --muted: #e5e5e5;
+  --muted-foreground: #666666;
+
+  --accent: #8B3A62;
+  --accent-foreground: #ffffff;
+
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  --border: #e0e0e0;
+  --input: #f5f5f5;
+  --ring: #8B3A62;
+
+  --radius: 0.5rem;
+
+  /* Vault-specific colors */
+  --maroon-50: #faf5f7;
+  --maroon-100: #f0e0e6;
+  --maroon-200: #e0bfd1;
+  --maroon-300: #c99eb8;
+  --maroon-400: #9d5f86;
+  --maroon-500: #8B3A62;
+  --maroon-600: #6b2d4c;
+  --maroon-700: #5a2940;
+  --maroon-800: #3d1d2c;
+}
+
+/* ================= THEME MAPPING ================= */
+@theme inline {
+  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-mono: monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Maroon palette */
+  --color-maroon-50: var(--maroon-50);
+  --color-maroon-100: var(--maroon-100);
+  --color-maroon-200: var(--maroon-200);
+  --color-maroon-300: var(--maroon-300);
+  --color-maroon-400: var(--maroon-400);
+  --color-maroon-500: var(--maroon-500);
+  --color-maroon-600: var(--maroon-600);
+  --color-maroon-700: var(--maroon-700);
+  --color-maroon-800: var(--maroon-800);
+}
+
+/* ================= GLOBAL RESET ================= */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* ================= BASE STYLES ================= */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}

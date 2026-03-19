@@ -1,7 +1,7 @@
-import ClaimPortal from './pages/claimportal'
+import RegisterStudent from './pages/studentRegistry'
 
 function App() {
-  return <ClaimPortal />
+   return <RegisterStudent />
 }
 
 export default App
